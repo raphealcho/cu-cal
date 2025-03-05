@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구리 전선 무게 및 가격 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .recommend-button {
+            display: block;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .recommend-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>구리 전선 무게 및 가격 계산기</h2>
+        <label for="thickness">전선 굵기 (㎟):</label>
+        <input type="number" id="thickness" placeholder="㎟ 단위 입력">
+        
+        <label for="length">전선 길이 (m):</label>
+        <input type="number" id="length" placeholder="미터 단위 입력">
+        
+        <label for="copperPrice">구리 가격 (원/kg):</label>
+        <input type="number" id="copperPrice" placeholder="구리 1kg당 가격">
+        
+        <button onclick="calculateWeightAndPrice()">계산하기</button>
+        
+        <h3 id="result"></h3>
+        
+        <a href="https://msearch.shopping.naver.com/search/all?adQuery=%ED%8F%90%EC%A0%84%EC%84%A0%ED%83%88%ED%94%BC%EA%B8%B0%20%EC%A0%84%EC%84%A0%EA%B9%8C%EB%8A%94%EA%B8%B0%EA%B3%84%20%ED%94%BC%EB%B3%B5%EC%A0%9C%EA%B1%B0%EA%B8%B0&frm=MOSCPRO&maxPrice=34900&minPrice=34000&origQuery=%ED%8F%90%EC%A0%84%EC%84%A0%ED%83%88%ED%94%BC%EA%B8%B0%20%EC%A0%84%EC%84%A0%EA%B9%8C%EB%8A%94%EA%B8%B0%EA%B3%84%20%ED%94%BC%EB%B3%B5%EC%A0%9C%EA%B1%B0%EA%B8%B0&pagingIndex=1&pagingSize=40&productSet=total&query=%ED%8F%90%EC%A0%84%EC%84%A0%ED%83%88%ED%94%BC%EA%B8%B0%20%EC%A0%84%EC%84%A0%EA%B9%8C%EB%8A%94%EA%B8%B0%EA%B3%84%20%ED%94%BC%EB%B3%B5%EC%A0%9C%EA%B1%B0%EA%B8%B0&sort=rel&viewType=list" class="recommend-button" target="_blank">전선까는 기계 구매하러 가기</a>
+    </div>
+
+    <script>
+        function calculateWeightAndPrice() {
+            let thickness = parseFloat(document.getElementById("thickness").value);
+            let length = parseFloat(document.getElementById("length").value);
+            let copperPrice = parseFloat(document.getElementById("copperPrice").value);
+            
+            if (isNaN(thickness) || isNaN(length) || isNaN(copperPrice) || thickness <= 0 || length <= 0 || copperPrice <= 0) {
+                document.getElementById("result").innerHTML = "올바른 값을 입력하세요.";
+                return;
+            }
+            
+            // 구리 전선 밀도 (kg/m) 계산: 0.00896 * 단면적(㎟) * 길이(m)
+            let weight = 0.00896 * thickness * length;
+            let totalPrice = weight * copperPrice;
+            
+            document.getElementById("result").innerHTML = 
+                `전선 무게: <strong>${weight.toFixed(2)}</strong> kg<br>총 가격: <strong>${totalPrice.toLocaleString()}</strong> 원`;
+        }
+    </script>
+</body>
+</html>
